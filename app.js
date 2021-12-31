@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 
+require('dotenv').config()
+
 const app = express();
 //used to access static local files through the server example styles.css 
 app.use(express.static("public"));
@@ -38,10 +40,10 @@ app.post("/", function (req, res) {
     };
     //data to be send to mailchimp
     var jsonData = JSON.stringify(data);
-    const url = "https://us20.api.mailchimp.com/3.0/lists/05118e3f27";
+    const url = "https://us20.api.mailchimp.com/3.0/lists/"+process.env.AUDIENCE_ID;
     const options = {
         method: "POST",
-        auth: "tanisha:14239f315d98136f734e9b8cc941ed37-us20"
+        auth: "tanisha:"+process.env.API_KEY
     }
 
     const request=https.request(url, options, function (response) {
